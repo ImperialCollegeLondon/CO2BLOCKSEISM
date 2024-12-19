@@ -7,10 +7,15 @@
 % Please, read the file README for more information about the tool.
 % This software is free. Please cite CO2BLOCKSEISM as:
 % https://github.com/imanrahimzadeh/CO2BLOCKSEISM
+% 
+% Kivi, I.R., De Simone, S. and Krevor, S., 2024. A simplified physics model 
+% for estimating subsurface CO2 storage resources constrained ‎by % fault slip 
+% potential. Preprint, EarthArXiv. DOI: https://doi.org/10.31223/X5KM65
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clearvars; close all;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%  INPUT DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  INPUT DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %-- data file directory and name
 fpath = pwd;                        % directory of the input data file 
 addpath(fpath)
@@ -100,7 +105,7 @@ cum_water = well_data(:,4)*0.159;
 wells_coord_x = 111.320*1000*(well_data(:,3) - ref_lon).*cos(deg2rad(well_data(:,2)));            
 wells_coord_y = 110.574*1000*(well_data(:,2) - ref_lat);
 
-%%%%%%%%%%%%%%%%%%%%%%%% END OF INPUT DATA  %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% END OF INPUT DATA  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%
@@ -118,4 +123,4 @@ disp('probabilistic assessment done')
     fault_coord_x,fault_coord_y,rw,Inj_data,dt,time_project,nr_fault,n_2Dplot_grids_x,n_2Dplot_grids_y);
 disp('hydrogeology calculations done')
 
-    
+%%%%%%%%%%%%%%%%%%%%%%%%% END OF CALCULATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
