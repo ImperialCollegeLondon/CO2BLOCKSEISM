@@ -12,7 +12,7 @@ CO2BLOCKSEISM is an open-source software. If you use it for academic purposes, p
 
 
 
-**Code structure**
+## **Code structure**
 
 The tool comprises of a number scripts and functions as detailed below:
 - "CO2BLOCKSEISM.m": this is the main script, where all input data for the study are specified. This script calls several functions to perform the required calculations,
