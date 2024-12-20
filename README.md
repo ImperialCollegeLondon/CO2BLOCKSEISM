@@ -10,10 +10,9 @@ Should you have any question/comment/suggestion, please contact Iman R. Kivi thr
 
 CO2BLOCKSEISM is an open-source software. If you use it for academic purposes, please cite the reference paper above. 
 
-
+ 
 
 ## **Code structure**
-
 The tool comprises of a number scripts and functions as detailed below:
 - "CO2BLOCKSEISM.m": this is the main script, where all input data for the study are specified. This script calls several functions to perform the required calculations,
 - "read_data.m": this function reads the input parameters from the input excel file,
