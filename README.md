@@ -29,7 +29,9 @@ Input parameters are introduced to the tool either directly within the script "C
 Information about the statistical distributions of uncertain geomechanical parameters, discretization in time and space, injection schedules and distributions of injection sites and faults are specified in the script "CO2BLOCKSEISM.m". The script reads data for the distributions of the injection sites and faults from separate input .xlsx files. Additional information, e.g., geographical data or induced seismicity records may be added for use in the plots.  
 
 ## **Output**
-Input
+The main outputs of the tool are the spatial and temporal evolution of injection-induced pore pressure changes, fault slip probability, possible earthquake magnitudes and the maximum CO<sub>2</sub> storage capacity that can be safely achieved. The tool saves the plots in the specified directory. 
+
+The results of the tool calculations for the two demonstration studies are provided as "Results_Utsira.mat" and "Results_OK.mat". One may simply load the results and just run the script "plot.m" to reproduce all figures presented in the reference paper mentioned above. Alternatively, the script "CO2BLOCKSEISM.m" with the provided input data can be run to regenerate the results.  
 
 
 
