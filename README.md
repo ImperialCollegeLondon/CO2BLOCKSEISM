@@ -10,4 +10,14 @@ Should you have any question/comment/suggestion, please contact Iman R. Kivi thr
 
 CO2BLOCKSEISM is an open-source software. If you use it for academic purposes, please cite the reference paper above. 
 
+
 **Code structure**
+The tool comprises of a number scripts and functions as detailed below:
+- "CO2BLOCKSEISM.m": this is the main script, where all input data for the study are specified. This script calls several functions to perform the required calculations,
+- "read_data.m": this function reads the input parameters from the input excel file,
+- "hydrogeology.m": this function involves analytical solutions of the pressure response of saline aquifers to multi-site CO<sub>2</sub> injection at time-varying rate,
+- "Geomech_prob.m": this function develops a Monte Carlo-type probabilistic model for evaluating the probability of fault slip under inherent uncertainties of the geomechanical parameters of the subsurface,
+- "Analytical_solution.m" and "FD_Nor_2zones.m": these functions calculate pressure changes in a saline aquifer in response to two-phase flow of CO<sub>2</sub> and water around a single injection site based on analytical solution by Nordbotten et al. (2005). A simplified solution for single phase flow of water is used for the demonstration study of induced seismicity in Oklahoma,
+- "stress_projection.m": this function projects shear and normal stress components onto the fault planes for different realizations of the Monte Carlo simulation,
+- "eos.m": this function returns brine viscosity and CO<sub>2</sub> density and viscosity using appropriate equations of state,
+- "plot.m": this script visualizes the output data through appropriate plots. Scientific colormaps developed by Fabio Crameri (2018) is used in these plots. The functions, database and instructions of using the Crameri's colormaps are also provided.     
