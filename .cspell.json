@@ -1,0 +1,32 @@
+{
+    "version": "0.2",
+    "language": "en,en-GB",
+    "dictionaries": [
+        "scientific-terms-us"
+    ],
+    "words": [
+        "BLOCKSEISM",
+        "colormaps",
+        "injectivity",
+        "Krevor",
+        "Nordbotten",
+        "Utsira",
+        "Maksim",
+        "Elizarev",
+        "Kivi",
+        "geomechanical",
+        "Fabio",
+        "Crameri",
+        "seismogenic"
+    ],
+    "flagWords": [],
+    "ignorePaths": [
+        "CHANGELOG.md",
+        "**/*.yml",
+        "**/*.m",
+        "**/*.json"
+    ],
+    "ignoreWords": [
+        "geomech"
+    ]
+}
