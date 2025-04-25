@@ -1,19 +1,20 @@
 % read inout parameters
-% Note that seismicity may occur in formations overlying or underlying and 
+% Note that seismicity may occur in formations overlying or underlying and
 % in hydraulic conncetion with the target storage layer. Thus, depth,
 % pressure, stress and fault properties are entered separately for the
-% seismic layer. 
+% seismic layer.
 function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     gamma,delta,omega,depth_seismic,pres_grad_seismic,Sv_grad_seismic,...
     Shmin_grad_seismic,SHmax_grad_seismic,SHmax_dir_seismic,fault_friction]...
     = read_data(path,name)
- 
+
     % -- default parameters (used in case they are not provided)
+    %#ok<*NASGU>
     def_litho_grad = 23 ;               % lithostatic gradient [MPa/km]
     def_hydro_grad = 10 ;               % hydrostatic gradient [MPa/km]
     def_temp_grad = 33 ;                % temperaturegradient [C/km]
     def_temp_surface = 15 ;             % surface temperature [C]
-    def_k0 = 0.6 ;                      % default stress ratio Sh/Sv  
+    def_k0 = 0.6 ;                      % default stress ratio Sh/Sv
     def_rock_friction_angle = 30 ;      % default rock friction angle [deg]
     def_rock_cohesion = 0;              % default rock cohesion [MPa]
     def_cr = 5*10^-4 ;                  % default rock compressibility [MPa^-1]
@@ -24,9 +25,9 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     % --
 
     % -- read data
-    data = readtable([path,'\',name],'Sheet','Model parameters','Range','A1:AD2'); 
+    data = readtable([path,'\',name],'Sheet','Model parameters','Range','A1:AD2');
 
-    % General data used for calculating injectivity in "calculate" 
+    % General data used for calculating injectivity in "calculate"
     domain_type = char(data{1,2});                      % domain confinement; 'open' or 'closed'
     depth = double(data{1,3});                          % shallowest depth of reservoir [m]
     depth_mean = double(data{1,4});                     % mean depth of reservoir [m]
@@ -37,8 +38,8 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     cr = double(data{1,9})/1e6;                         % rock compressibility [1/Pa]
     cw = double(data{1,10})/1e6;                        % water compressibility [1/Pa]
     dens_c = double(data{1,11})*1e3;                    % Density of CO2 [kg/m^3]
-    visc_c = double(data{1,12})/1e3;                    % Viscosity of CO2 [Pa.s] 
-    visc_w = double(data{1,13})/1e3;                    % Viscosity of water[Pa.s] 
+    visc_c = double(data{1,12})/1e3;                    % Viscosity of CO2 [Pa.s]
+    visc_w = double(data{1,13})/1e3;                    % Viscosity of water[Pa.s]
     pres_grad = double(data{1,14})/1e3;                 % pressure gradient [MPa/m]
     temp_surf = double(data{1,15});                     % surface temperature [C]
     temp_grad = double(data{1,16})/1e3;                 % temperature gradient [C/m]
@@ -70,11 +71,11 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
             rc = inf;
         case 'Closed'
             domain_type = 'closed';
-            rc = sqrt(area_res*10^6/pi);    
+            rc = sqrt(area_res*10^6/pi);
         case 'closed'
             domain_type = 'closed';
-            rc = sqrt(area_res*10^6/pi);  
-    end  
+            rc = sqrt(area_res*10^6/pi);
+    end
 
     %%% calculate some parameters if not given
     if depth == 0 ||  isnan(depth)
@@ -84,7 +85,7 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     if pres_grad == 0 ||  isnan(pres_grad)
         pres_grad = def_hydro_grad/1e3 ;
     end
-    
+
     if temp_surf == 0 ||  isnan(temp_surf)
         temp_surf = def_temp_surf ;
     end
@@ -113,7 +114,7 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     if rock_friction == 0 ||  isnan(rock_friction)
         rock_friction = def_rock_friction_angle ;
     end
-    
+
     if rock_cohesion == 0 ||  isnan(rock_cohesion)
         rock_cohesion = def_rock_cohesion ;
     end
@@ -121,7 +122,7 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     if rock_tens_strength== 0 ||  isnan(rock_tens_strength)
         rock_tens_strength = rock_cohesion/2;
     end
-                
+
     if cr == 0 ||  isnan(cr)
         cr = def_cr/1e6;
     end
@@ -146,7 +147,7 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     if Sv_grad_seismic == 0 || isnan(Sv_grad_seismic)
         Sv_grad_seismic = Sv_grad ;
     end
-    
+
     if Shmin_grad_seismic == 0 || isnan(Shmin_grad_seismic)
         Shmin_grad_seismic = Shmin_grad ;
     end
@@ -154,7 +155,7 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     if SHmax_grad_seismic == 0 || isnan(SHmax_grad_seismic)
         SHmax_grad_seismic = SHmax_grad ;
     end
-    
+
     if SHmax_dir_seismic == 0 || isnan(SHmax_dir_seismic)
         SHmax_dir_seismic = def_SHmax_dir_seismic ;
     end
@@ -164,7 +165,7 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
     end
 
     %---------------------------------------------------------------------
-        
+
     depth_bottom = depth_mean + thick/2 ;                % bottom reservoir depth [m]
     pres_mean = pres_grad*depth_mean ;                   % pressure at mid reservoir depth [MPa]
     T_mean = temp_surf + temp_grad*depth_mean;          % temperature at mid reservoir depth [C]
@@ -178,13 +179,13 @@ function [thick,area_res,perm,por,dens_c,visc_c,visc_w,compr,rc,...
         [~,~,visc_c] = eos(T_mean, pres_mean,salinity, dens_c);
     end
 
-    if visc_w == 0 || isnan(visc_w) 
-        [visc_w,~,~] = eos(T_mean, pres_mean, salinity,0) ; 
+    if visc_w == 0 || isnan(visc_w)
+        [visc_w,~,~] = eos(T_mean, pres_mean, salinity,0) ;
     end
 
-    %%%%%%%%% calculate some useful parameters 
-    gamma = visc_c/(visc_w);                                                % Non-dimensional viscosity ratio[-]
-    delta = (visc_w-visc_c)/visc_w;  
+    %%%%%%%%% calculate some useful parameters
+    gamma = visc_c/(visc_w);                                    % Non-dimensional viscosity ratio[-]
+    delta = (visc_w-visc_c)/visc_w;
     omega = (visc_c+visc_w)/(visc_c-visc_w)*log(sqrt(visc_c/visc_w))-1 ;
-    compr = cr+por*cw ;                                                     %total compressibility  [1/Pa]
+    compr = cr+por*cw ;                                         % total compressibility  [1/Pa]
 end

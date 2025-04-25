@@ -3,7 +3,7 @@ function plan = buildfile()
 plan = buildplan(localfunctions);
 plan.DefaultTasks = ["check","test"];
 
-warning_threshold = Inf;
+warning_threshold = 0;
 if warning_threshold ~= 0
     warning('Code Analyzer warnings are allowed for this codebase');
 end

@@ -1,3 +1,4 @@
+%#ok<*LLMNC>
 %% Input data
 
 time = 18;                     % time [year] for plotting
@@ -11,7 +12,7 @@ axis_size = 9;                 % font size of numbers on the axes
 plot_color = [1 1 1];          % Background plot color
 
 % Assigning colormaps
-% different scientific colormaps from crameri can be used 
+% different scientific colormaps from crameri can be used
 % Crameri, F. (2018). Scientific colour maps. Zenodo. at:
 % https://doi.org/10.5281/zenodo.1243862
 
@@ -33,7 +34,7 @@ cdf_color = 'probability';      % either 'probability' or 'slip pressure'
 well_locations= 'Y';            % Y: plot      N: do not plot
 
 % Histogram plot parameters
-fault_No = 2;                   % number of the fault for which histograms are plotted 
+fault_No = 2;                   % number of the fault for which histograms are plotted
                                 % use 2 to reproduce Fig. S2
 nr_bins = 40;                   % number of bins for each histogram
 
@@ -43,32 +44,32 @@ resolution = 300;
 
 fpath = pwd;
 
-set(groot,'defaulttextinterpreter','latex');  
-set(groot, 'defaultAxesTickLabelInterpreter','latex');  
+set(groot,'defaulttextinterpreter','latex');
+set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
 
 % Oklahoma data
-County_boarders = xlsread("OK_KS_boarders.xlsx");     % Coordinate of county boarders
-OK_state_boarder = xlsread("OK_state_border.xlsx");   % Coordinate of the whole OK state border
-Seismicity_M3 = xlsread("Seismicity M3.xlsx");        % Seismic events of M>3
-Seismicity_M4_5 = xlsread("Seismicity M4.5.xlsx");    % Seismic events of M>4.5
-M3_monthlyrate = xlsread("Seismicity M3-monthly rate.xlsx");    % Monthly rate of M>3
-well_data = xlsread("Inj_rate.xlsx");                 % Monthly injection rate data of the wellbores 
-Fault_data = xlsread("Faults.xlsx");                  % Fault attributes
+County_boarders = readmatrix("OK_KS_boarders.xlsx");     % Coordinate of county boarders
+OK_state_boarder = readmatrix("OK_state_border.xlsx");   % Coordinate of the whole OK state border
+Seismicity_M3 = readmatrix("Seismicity M3.xlsx");        % Seismic events of M>3
+Seismicity_M4_5 = readmatrix("Seismicity M4.5.xlsx");    % Seismic events of M>4.5
+M3_monthlyrate = readmatrix("Seismicity M3-monthly rate.xlsx");    % Monthly rate of M>3
+well_data = readmatrix("Inj_rate.xlsx");                 % Monthly injection rate data of the wellbores
+Fault_data = readmatrix("Faults.xlsx");                  % Fault attributes
 
 % Oklahoma State boarder coordinates
-OK_state_boarder_x = 111.320*1000*(OK_state_boarder(:,2) - ref_lon).*cos(deg2rad(OK_state_boarder(:,1)));            
+OK_state_boarder_x = 111.320*1000*(OK_state_boarder(:,2) - ref_lon).*cos(deg2rad(OK_state_boarder(:,1)));
 OK_state_boarder_y = 110.574*1000*(OK_state_boarder(:,1) - ref_lat);
 
 % Study area coordinates
-Studyarea_x = 111.320*1000*(Study_area(:,2) - ref_lon).*cos(deg2rad(Study_area(:,1)));            
+Studyarea_x = 111.320*1000*(Study_area(:,2) - ref_lon).*cos(deg2rad(Study_area(:,1)));
 Studyarea_y = 110.574*1000*(Study_area(:,1) - ref_lat);
 
 % Loading seismicity data
-event_M3_coord_x = 111.320*1000*(Seismicity_M3(:,2) - ref_lon).*cos(deg2rad(Seismicity_M3(:,1)));            
+event_M3_coord_x = 111.320*1000*(Seismicity_M3(:,2) - ref_lon).*cos(deg2rad(Seismicity_M3(:,1)));
 event_M3_coord_y = 110.574*1000*(Seismicity_M3(:,1) - ref_lat);
 
-event_M4_5_coord_x = 111.320*1000*(Seismicity_M4_5(:,2) - ref_lon).*cos(deg2rad(Seismicity_M4_5(:,1)));            
+event_M4_5_coord_x = 111.320*1000*(Seismicity_M4_5(:,2) - ref_lon).*cos(deg2rad(Seismicity_M4_5(:,1)));
 event_M4_5_coord_y = 110.574*1000*(Seismicity_M4_5(:,1) - ref_lat);
 
 
@@ -79,7 +80,7 @@ fault_azi = Fault_data(:,4);
 % fault length [m]
 fault_length = Fault_data(:,3);
 
-% fault coordinate (centroid) [m] 
+% fault coordinate (centroid) [m]
 fault_coord_x = Fault_data(:,1);
 fault_coord_y = Fault_data(:,2);
 
@@ -143,16 +144,16 @@ annotation(Monthly_inj_rate_plot,'arrow',[0.83331111111111 0.853066666666664],..
     [0.288520833333334 0.336145833333334],'HeadWidth',6,'HeadLength',5);
 
 % Parague
-text('String',['Parague',sprintf('\n'),'{\it M} = 5.7'],...
+text('String',['Parague',newline,'{\it M} = 5.7'],...
     'Position',[2011 64.24 0],'FontSize',8);
 % Parague
-text('String',['Fairview',sprintf('\n'),'{\it M} = 5.1'],...
+text('String',['Fairview',newline,'{\it M} = 5.1'],...
     'Position',[2013.09 110.2 0],'FontSize',8);
 % Pawnee
-text('String',['Pawnee',sprintf('\n'),'{\it M} = 5.8'],...
+text('String',['Pawnee',newline,'{\it M} = 5.8'],...
     'Position',[2016.2 73.37 0],'FontSize',8);
 % Cushing
-text('String',['Pawnee',sprintf('\n'),'{\it M} = 5.0'],...
+text('String',['Pawnee',newline,'{\it M} = 5.0'],...
     'Position',[2015.02352941177 16.7326732673267 0],'FontSize',8);
 hold(axes1,'off');
 
@@ -243,7 +244,7 @@ xlabel('X, Easting [km]', ...
 
 % cbar = colorbar('Position',[0.79 0.13 0.037 0.79],...
 
-cbar = colorbar('Position',[0.81 0.129 0.0381 0.7967],... 
+cbar = colorbar('Position',[0.81 0.129 0.0381 0.7967],...
 'LineWidth',0.2,...
 'FontName', 'Arial', ...
 'TickLabelInterpreter','latex',...
@@ -293,7 +294,7 @@ time_series= dt:dt:time_project;
 surfc((Mesh_grid(:,:,1))/1000 , (Mesh_grid(:,:,2))/1000,p_2Dgrid{time_step},'EdgeColor','none')
 grid off
 
-cbar = colorbar('Position',[0.81 0.129 0.0381 0.7967],... 
+cbar = colorbar('Position',[0.81 0.129 0.0381 0.7967],...
 'LineWidth',0.2,...
 'FontName', 'Arial', ...
 'TickLabelInterpreter','latex',...
@@ -339,7 +340,7 @@ m45=scatter3(event_M4_5_coord_x/1000 , event_M4_5_coord_y/1000,25+0*event_M4_5_c
     40,'pentagram','filled','MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[1 1 0],'LineWidth',0.5);
 
 legend ([M3 m45], {['{\it M}' ' $\geq$ 3'] ['{\it M}' ' $\geq$ 4.5']},...
-    'Location','southwest','Color',[1 1 1],'box','on');  
+    'Location','southwest','Color',[1 1 1],'box','on');
 
 title('Arbuckle Formation, Dec. 2017','FontSize', title_size,...
     'interpreter', 'latex')
@@ -464,7 +465,7 @@ time_series= dt:dt:time_project;
 [~,time_step] = min(abs(time_series-time));
 
 for i=1:nr_fault
-    [cdf x] = ecdf(deltap_cr{i});  
+    [cdf, x] = ecdf(deltap_cr{i});
 
     % Matrix of the probability of slip on all faults at different times
     for j = 1:length(time_series)
@@ -489,7 +490,7 @@ if strcmp(cdf_color,'probability')
     else
         color_idx = linspace(0,max_color_probability,length(cmap_fault));
     end
-elseif strcmp(cdf_color,'slip pressure')
+elseif strcmp(cdf_color,'slip pressure') %#ok<UNRCH>
     if isempty (max_color_pressure) == 1
         color_idx = linspace(min(deltap_cr_ref),max(deltap_cr_ref),length(cmap_fault));
     else
@@ -503,7 +504,7 @@ for i=1:nr_fault
     if strcmp(cdf_color,'probability')
         [d , idx] = min(abs(color_idx - slip_prob_each_t (i,time_step)));
         plot(x_cdf(:,i),slip_prob_plot(:,i),'LineWidth',1,'color',cmap_fault(idx,:));
-    elseif strcmp(cdf_color,'slip pressure')
+    elseif strcmp(cdf_color,'slip pressure') %#ok<UNRCH>
         [d , idx] = min(abs(color_idx - deltap_cr_ref (i)));
         plot(x_cdf(:,i),slip_prob_plot(:,i),'LineWidth',1,'color',cmap_fault(idx,:));
     end
@@ -521,7 +522,7 @@ xlabel('Pore pressure changes [MPa]', ...
 box('on');
 
 cbar = colorbar('Position',[0.86 0.11 0.0381 0.85], ...
-    'Ticks',[0 0.05 0.1 0.15 0.2 0.25 0.3],... 
+    'Ticks',[0 0.05 0.1 0.15 0.2 0.25 0.3],...
     'LineWidth',0.2,...
     'FontName', 'Arial', ...
     'TickLabelInterpreter','latex',...
@@ -541,7 +542,7 @@ if strcmp(cdf_color,'probability')
     end
     colormap(cmap_fault)
 
-elseif strcmp(cdf_color,'slip pressure')
+elseif strcmp(cdf_color,'slip pressure') %#ok<UNRCH>
     set(get(cbar,'ylabel'),'string',['$\Delta$','{\it p}',' to slip [MPa]'],...
         'Rotation',90,...
         'FontName', 'Arial', ...
@@ -573,7 +574,7 @@ for i=1:nr_fault
     if strcmp(cdf_color,'probability')
         [d , idx] = min(abs(color_idx - slip_prob_each_t (i,time_step)));
         plot(x_cdf(:,i),slip_prob_plot(:,i),'LineWidth',1,'color',cmap_fault(idx,:));
-    elseif strcmp(cdf_color,'slip pressure')
+    elseif strcmp(cdf_color,'slip pressure') %#ok<UNRCH>
         [d , idx] = min(abs(color_idx - deltap_cr_ref (i)));
         plot(x_cdf(:,i),slip_prob_plot(:,i),'LineWidth',1,'color',cmap_fault(idx,:));
     end
@@ -591,7 +592,7 @@ xlabel('Pore pressure changes [MPa]', ...
 box('on');
 
 cbar = colorbar('Position',[0.86 0.11 0.0381 0.85], ...
-    'Ticks',[0 0.05 0.1 0.15 0.2 0.25 0.3],... 
+    'Ticks',[0 0.05 0.1 0.15 0.2 0.25 0.3],...
     'LineWidth',0.2,...
     'FontName', 'Arial', ...
     'TickLabelInterpreter','latex',...
@@ -611,7 +612,7 @@ if strcmp(cdf_color,'probability')
     end
     colormap(cmap_fault)
 
-elseif strcmp(cdf_color,'slip pressure')
+elseif strcmp(cdf_color,'slip pressure') %#ok<UNRCH>
     set(get(cbar,'ylabel'),'string',['$\Delta$','{\it p}',' to slip [MPa]'],...
         'Rotation',90,...
         'FontName', 'Arial', ...
@@ -709,7 +710,7 @@ hold off
 box('on');
 
 cbar = colorbar('Position',[0.83 0.10 0.0381 0.83], ...
-    'Ticks',[0 0.05 0.1 0.15 0.2 0.25 0.3],... 
+    'Ticks',[0 0.05 0.1 0.15 0.2 0.25 0.3],...
     'LineWidth',0.2,...
     'FontName', 'Arial', ...
     'TickLabelInterpreter','latex',...
@@ -733,7 +734,7 @@ end
 colormap(cmap_fault)
 
 legend ([M3 m45], {['{\it M}' ' $\geq$ 3'] ['{\it M}' ' $\geq$ 4.5']},...
-    'Location','northwest','Color',[1 1 1],'box','on'); 
+    'Location','northwest','Color',[1 1 1],'box','on');
 
 axis('equal')
 
@@ -791,7 +792,7 @@ else
 end
 
 M3=scatter(event_M3_coord_x/1000 , event_M3_coord_y/1000,7,'o','filled',...
-    'MarkerEdgeColor',[0.4 0.4 0.4],'MarkerFaceColor',[0.7 0.7 0.7],'LineWidth',0.5);
+    'MarkerEdgeColor',[0.4 0.4 0.4],'MarkerFaceColor',[0.7 0.7 0.7],'LineWidth',0.5); %#ok<*NASGU>
 hold on
 
 fault_points_x(:,1) = (fault_coord_x + fault_length/2.*sin(deg2rad(fault_azi)))/1000;
@@ -801,7 +802,7 @@ fault_points_y(:,2) = (fault_coord_y - fault_length/2.*cos(deg2rad(fault_azi)))/
 
 for i = 1:nr_fault
     [d , idx] = min(abs(color_idx -slip_prob_each_t(i,time_step)));
-    
+
     plot(fault_points_x(i,:) , fault_points_y(i,:),'LineWidth',1.5,'Color',cmap_fault(idx,:))
     hold on
 end
@@ -809,7 +810,7 @@ end
 % plotting seismicity data
 m45=scatter(event_M4_5_coord_x/1000 , event_M4_5_coord_y/1000,40,'pentagram','filled',...
     'MarkerEdgeColor',[0 0 0],'MarkerFaceColor',[1 1 0],'LineWidth',0.5);
- 
+
 hold off
 
 box('on');
@@ -847,21 +848,21 @@ annotation(Slip_probability_Prague,'arrow',[0.629259259259259 0.699814814814815]
     [0.736031746031746 0.756190476190475],'HeadWidth',6,'HeadLength',5);
 
 
-% Prague 
-text('String',['Prague',sprintf('\n'),'{\it M} = 5.8'],...
+% Prague
+text('String',['Prague',newline,'{\it M} = 5.8'],...
     'Position',[250.935828877006 56.7179144385027 0],'FontSize',7);
 % Aftershock
-text('String',['Aftershock'],...
+text('String','Aftershock',...
     'Position',[234.55 58.376 0],'FontSize',7);
 % Foreshock
-text('String',['Foreshock'],...
+text('String','Foreshock',...
     'Position',[251.508021390374 61.4508663101604 0],'FontSize',7);
 % Wilzetta fault
-text('String',['Wilzetta',sprintf('\n'),'fault'],...
+text('String',['Wilzetta',newline,'fault'],...
     'Position',[246.905080213904 48.7967914438503 0],'FontSize',7 , 'Rotation',69);
 
 % Parague header
-text('String',['Parague 2011'],...
+text('String','Parague 2011',...
     'Position',[234.666 65.50 0],'FontSize',9);
 
 text(229, 66.8,'b', 'Interpreter','latex','FontSize', 10)
@@ -917,11 +918,11 @@ fault_points_y(:,2) = (fault_coord_y - fault_length/2.*cos(deg2rad(fault_azi)))/
 
 for i = 1:nr_fault
     [d , idx] = min(abs(color_idx -slip_prob_each_t(i,time_step)));
-    
+
     plot(fault_points_x(i,:) , fault_points_y(i,:),'LineWidth',1.5,'Color',cmap_fault(idx,:))
     hold on
 end
- 
+
 hold off
 
 box('on');
@@ -950,12 +951,12 @@ text(216, 229,'Kansas', 'Interpreter','latex','FontSize', 8)
 annotation(Slip_probability_Cherokee,'arrow',[0.448950617283951 0.507746913580247],...
     [0.599960317460318 0.554603174603175],'HeadWidth',6,'HeadLength',5);
 
-% Cherokee 
-text('String',['Cherokee',sprintf('\n'),'{\it M} = 4.7'],...
+% Cherokee
+text('String',['Cherokee',newline,'{\it M} = 4.7'],...
     'Position',[96.0695187165775 181.598930481283 0],'FontSize',7);
 
 % Cherokee header
-text('String',['Cherokee 2015'],...
+text('String','Cherokee 2015',...
     'Position',[86 191.5 0],'FontSize',9);
 
 text(79, 193,'c', 'Interpreter','latex','FontSize', 10)
@@ -1027,11 +1028,11 @@ cmap_fault_trans = [cmap_fault(1:50,:) 0.85*ones(50,1);
 
 for i = 1:nr_fault
     [d , idx] = min(abs(color_idx -slip_prob_each_t(i,time_step)));
-    
+
     plot(fault_points_x(i,:) , fault_points_y(i,:),'LineWidth',1.5,'Color',cmap_fault_trans(idx,:))
     hold on
 end
- 
+
 hold off
 
 box('on');
@@ -1066,14 +1067,14 @@ annotation(Slip_probability_Fairview,'arrow',[0.624 0.679],...
     [0.596 0.535],'HeadWidth',6,'HeadLength',5);
 
 % Fairview foreshcok
-text('String',['Fairview',sprintf('\n'),'foreshock',sprintf('\n'),'{\it M} = 4.7'],...
+text('String',['Fairview',newline,'foreshock',newline,'{\it M} = 4.7'],...
     'Position',[59.7628877005347 167.196203208556 0],'FontSize',7);
 % Fairview
-text('String',['Fairview',sprintf('\n'),'{\it M} = 5.1'],...
+text('String',['Fairview',newline,'{\it M} = 5.1'],...
     'Position',[73.93 161.66 0],'FontSize',7);
 
 % Fairview header
-text('String',['Fairview 2016'],...
+text('String','Fairview 2016',...
     'Position',[57.5 172.5 0],'FontSize',9);
 
 text(51, 173.5,'d', 'Interpreter','latex','FontSize', 10)
@@ -1129,11 +1130,11 @@ fault_points_y(:,2) = (fault_coord_y - fault_length/2.*cos(deg2rad(fault_azi)))/
 
 for i = 1:nr_fault
     [d , idx] = min(abs(color_idx -slip_prob_each_t(i,time_step)));
-    
+
     plot(fault_points_x(i,:) , fault_points_y(i,:),'LineWidth',1.5,'Color',cmap_fault(idx,:))
     hold on
 end
- 
+
 hold off
 
 box('on');
@@ -1170,18 +1171,18 @@ annotation(Slip_probability_Pawnee,'line',[0.5732421875 0.7841796875],...
     'LineWidth',1.5,...
     'LineStyle','--');
 
-% Pawnee 
-text('String',['Pawnee',sprintf('\n'),'{\it M} = 5.8'],...
+% Pawnee
+text('String',['Pawnee',newline,'{\it M} = 5.8'],...
     'Position',[231.303475935829 151.236631016042 0],'FontSize',7);
 % Labette fault
-text('String',['Labette fault'],...
+text('String','Labette fault',...
     'Position',[237.352941176471 158.295454545454 0],'FontSize',7 , 'Rotation',62);
 % Labette fault
-text('String',['Stillwater fault'],...
+text('String','Stillwater fault',...
     'Position',[222.205882352941 148.549465240642 0],'FontSize',7 , 'Rotation',57);
 
 % Pawnee header
-text('String',['Pawnee 2016'],...
+text('String','Pawnee 2016',...
     'Position',[218.8 165.3 0],'FontSize',9);
 
 
@@ -1238,11 +1239,11 @@ fault_points_y(:,2) = (fault_coord_y - fault_length/2.*cos(deg2rad(fault_azi)))/
 
 for i = 1:nr_fault
     [d , idx] = min(abs(color_idx -slip_prob_each_t(i,time_step)));
-    
+
     plot(fault_points_x(i,:) , fault_points_y(i,:),'LineWidth',1.5,'Color',cmap_fault(idx,:))
     hold on
 end
- 
+
 hold off
 
 box('on');
@@ -1277,12 +1278,12 @@ annotation(Slip_probability_Cushing,'line',[0.652777777777778 0.503827160493827]
     'LineWidth',1.5,...
     'LineStyle','--');
 
-% Cushing 
-text('String',['Cushing',sprintf('\n'),'{\it M} = 5'],...
+% Cushing
+text('String',['Cushing',newline,'{\it M} = 5'],...
     'Position',[237.560160427807 115.467914438503 0],'FontSize',7);
 
 % Cushing header
-text('String',['Cushing 2016'],...
+text('String','Cushing 2016',...
     'Position',[231 119.4 0],'FontSize',9);
 
 text(224.164438502674,120.6,'f', 'Interpreter','latex','FontSize', 10)
@@ -1307,11 +1308,11 @@ if save_figures=='Y'
     filename=[currentfolder,'\plots\','deltap_contour'];
     print(deltap_contour, '-dmeta', sprintf('-r%d', resolution), strcat(filename, '.emf'));
     print(deltap_contour,'-dpdf', sprintf('-r%d', resolution), strcat(filename, '.pdf'));
-    
+
     filename=[currentfolder,'\plots\','fault_slip_prob_plot'];
     print(fault_slip_prob_plot, '-dmeta', sprintf('-r%d', resolution), strcat(filename, '.emf'));
     print(fault_slip_prob_plot,'-dpdf', sprintf('-r%d', resolution), strcat(filename, '.pdf'));
-    
+
     filename=[currentfolder,'\plots\','Histogram_plot'];
     print(Histogram_plot, '-dmeta', sprintf('-r%d', resolution), strcat(filename, '.emf'));
     print(Histogram_plot,'-dpdf', sprintf('-r%d', resolution), strcat(filename, '.pdf'));
@@ -1328,9 +1329,3 @@ if save_figures=='Y'
     print(well_distribution, '-dmeta', sprintf('-r%d', resolution), strcat(filename, '.emf'));
     print(well_distribution,'-dpdf', sprintf('-r%d', resolution), strcat(filename, '.pdf'))
 end
-
-
-
-
-
-
