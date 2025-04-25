@@ -25,7 +25,7 @@ addpath(fpath)
 
 fname = 'Input-Utsira.xlsx';               % name of the input data file
 
-Fault_data = xlsread("Faults.xlsx");                            % Fault attributes
+Fault_data = readmatrix("Faults.xlsx");                            % Fault attributes
 
 ref_X = 46850;                       % X coordinate of the reference point [m]
 ref_Y = 6443400;                     % Y coordinate of the reference point [m]
@@ -35,9 +35,9 @@ model_height = 120;                 % model dimension in the latitude direction 
 
 % General wellbore grid parameters
 dist_min = 5 ;                      % minimum inter-well distance [km]; default= 5 km
-dist_max = 'auto';                  % maximum inter-well distance [km]. Set a number or 'auto' if you prefer automatic calculation
+dist_max = 'auto';                  %#ok<LLMNC> % maximum inter-well distance [km]. Set a number or 'auto' if you prefer automatic calculation
 nr_dist = 15;                       % number of inter-well distances to explore; default= 15
-nr_well_max ='auto';                % maximum number of wells. Set a number or 'auto' if you prefer automatic calculation
+nr_well_max ='auto';                %#ok<LLMNC> % maximum number of wells. Set a number or 'auto' if you prefer automatic calculation
 rw = 0.1 ;                          % well radius [m]
 
 time_project = 50 ;                 % projects duration [years]
@@ -86,9 +86,9 @@ nr_fault = length(fault_dip);
 
 
 % Assigning spatial and temporal domain resolutions
-dt= 1;                            % time steps overwhich pressure calculations are made [y]; t: 1:dt:time_project
-n_2Dplot_grids_x = 201;             % number of grid points along x for pressure calculation across the reservoir
-n_2Dplot_grids_y = 201;             % number of grid points along y for pressure calculation across the reservoir
+dt= 1;               % time steps overwhich pressure calculations are made [y]; t: 1:dt:time_project
+n_2Dplot_grids_x = 201;% number of grid points along x for pressure calculation across the reservoir
+n_2Dplot_grids_y = 201;% number of grid points along y for pressure calculation across the reservoir
 
 % Assigning the injection scheme
 
