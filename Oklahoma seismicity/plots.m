@@ -53,7 +53,7 @@ County_boarders = readmatrix("OK_KS_boarders.xlsx");     % Coordinate of county 
 OK_state_boarder = readmatrix("OK_state_border.xlsx");   % Coordinate of the whole OK state border
 Seismicity_M3 = readmatrix("Seismicity M3.xlsx");        % Seismic events of M>3
 Seismicity_M4_5 = readmatrix("Seismicity M4.5.xlsx");    % Seismic events of M>4.5
-M3_monthlyrate = readmatrixrix("Seismicity M3-monthly rate.xlsx");    % Monthly rate of M>3
+M3_monthlyrate = readmatrix("Seismicity M3-monthly rate.xlsx");    % Monthly rate of M>3
 well_data = readmatrix("Inj_rate.xlsx");                 % Monthly injection rate data of the wellbores
 Fault_data = readmatrix("Faults.xlsx");                  % Fault attributes
 
