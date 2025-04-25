@@ -1,27 +1,29 @@
-% This is a preliminary version of the tool "CO2BLOCKSEISM", which provides 
+% This is a preliminary version of the tool "CO2BLOCKSEISM", which provides
 % estimate of the CO2 storage capacity of a geological reservoir constrained
 % by the potential for induced seismicity. Injection sites are distributed
-% on rectangular grids at distance d in either m×m or ‎m×(m+1) configurations. ‎ 
-% The tool is here applied to the screening of storage capacity of the 
+% on rectangular grids at distance d in either m×m or ‎m×(m+1) configurations. ‎
+% The tool is here applied to the screening of storage capacity of the
 % Utsira Formation in the North Sea
 
 % Please, read the file README for more information about the tool.
 % This software is free. Please cite CO2BLOCKSEISM as:
 % https://github.com/imanrahimzadeh/CO2BLOCKSEISM
-% 
-% Kivi, I.R., De Simone, S. and Krevor, S., 2024. A simplified physics model 
-% for estimating subsurface CO2 storage resources constrained ‎by % fault slip 
+%
+% Kivi, I.R., De Simone, S. and Krevor, S., 2024. A simplified physics model
+% for estimating subsurface CO2 storage resources constrained ‎by % fault slip
 % potential. Preprint, EarthArXiv. DOI: https://doi.org/10.31223/X5KM65
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% FIXME: deduplicate this script by introducing functions
 
 clearvars; close all;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  INPUT DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %-- data file directory and name
-fpath = pwd;                        % directory of the input data file 
+fpath = pwd;                        % directory of the input data file
 addpath(fpath)
 
-fname = 'Input-Utsira.xlsx';               % name of the input data file 
+fname = 'Input-Utsira.xlsx';               % name of the input data file
 
 Fault_data = xlsread("Faults.xlsx");                            % Fault attributes
 
@@ -41,8 +43,8 @@ rw = 0.1 ;                          % well radius [m]
 time_project = 50 ;                 % projects duration [years]
 
 % Assigning parameters for the probabilistic analysis of seismicity
-% assigning distribution functions ('Nor': normal, 'Uni': Uniform) 
-f_dist_p = 'Uni';                
+% assigning distribution functions ('Nor': normal, 'Uni': Uniform)
+f_dist_p = 'Uni';
 f_dist_Sv = 'Nor';
 f_dist_Shmin = 'Nor';
 f_dist_SHmax = 'Nor';
@@ -52,12 +54,12 @@ f_dist_azi = 'Nor';
 f_dist_mu = 'Nor';
 
 % Distribution of uncertain geomechanical parameters
-% Option 1: Uniform distribution function 
-% +/-a around the average value 
+% Option 1: Uniform distribution function
+% +/-a around the average value
 % or
-% Option 2: Normal distribution function 
+% Option 2: Normal distribution function
 % generating values within +-3a of the average value (a: standard deviation)
-a_p_grad = 0.2 ;                    % pressure gradient [MPa/km]        
+a_p_grad = 0.2 ;                    % pressure gradient [MPa/km]
 a_Sv_grad = 0.2 ;                   % vertical stress gradient [MPa/km]
 a_Shmin_grad = 1 ;                  % Shmin stress gradient [MPa/km]
 a_SHmax_grad = 0.1 ;                  % SHmax stress gradient [MPa/km]   0.5
@@ -66,7 +68,7 @@ a_fault_dip = 18 ;                   % Fault dip [deg]
 a_fault_azi = 2 ;                   % Fault azimuth [deg]
 a_fault_mu = 0.03;                  % Fault friction coefficien
 
-n_MC = 5000 ;                        % Number of Monte-Carlo Simulations 
+n_MC = 5000 ;                        % Number of Monte-Carlo Simulations
 
 % Assigning fault attributes
 % Dip and Azimuth
@@ -76,7 +78,7 @@ fault_azi = Fault_data(:,4);
 % fault length [m]
 fault_length = Fault_data(:,3);
 
-% fault coordinate (centroid) [m] 
+% fault coordinate (centroid) [m]
 fault_coord_x = Fault_data(:,1) - ref_X;
 fault_coord_y = Fault_data(:,2) - ref_Y;
 
@@ -84,17 +86,17 @@ nr_fault = length(fault_dip);
 
 
 % Assigning spatial and temporal domain resolutions
-dt= 1;                            % time steps overwhich pressure calculations are made [y]; t: 1:dt:time_project 
+dt= 1;                            % time steps overwhich pressure calculations are made [y]; t: 1:dt:time_project
 n_2Dplot_grids_x = 201;             % number of grid points along x for pressure calculation across the reservoir
 n_2Dplot_grids_y = 201;             % number of grid points along y for pressure calculation across the reservoir
 
 % Assigning the injection scheme
 
-Q_M = [0 ;...         % Injection rate per well [Mt/y] 
+Q_M = [0 ;...         % Injection rate per well [Mt/y]
           10];        % Different number of injection plans can be entered
                       % Each injection plan has two rows: time and rates, respectively
                       % the time corresponds to the starts of using each rate
-          
+
 %%%%%%%%%%%%%%%%%%%%%%%%%% END OF INPUT DATA  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
