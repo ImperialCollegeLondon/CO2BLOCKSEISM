@@ -50,7 +50,7 @@ function [Mesh_grid,p_fault_reservoir,p_2Dgrid] = ...
                 p_sup = p_sup +  Delta_p ;                             % superposed overpressure for the center wellbore [MPa]
             end
 
-            p_fault_reservoir(fault_number,time_count) = p_sup ;        % pressure buildup on each fault for particular distance and well configuration
+            p_fault_reservoir(fault_number,time_count) = p_sup ;        %#ok<AGROW> % pressure buildup on each fault for particular distance and well configuration
         end
     end
 
@@ -91,7 +91,7 @@ function [Mesh_grid,p_fault_reservoir,p_2Dgrid] = ...
                     p_sup = p_sup +  Delta_p ;
                 end
 
-                p_2Dgrid{time_count}(x,y) = p_sup ;               % pressure buildup across the reservoir for different times
+                p_2Dgrid{time_count}(x,y) = p_sup ;               %#ok<AGROW> % pressure buildup across the reservoir for different times
             end
         end
     end

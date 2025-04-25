@@ -92,6 +92,10 @@ function [deltap_cr,deltap_cr_ref,r_p,r_Sv,r_Shmin,r_SHmax,r_SHmax_dir,r_fault_m
         r_SHmax = random(pd_SHmax , n_MC , 1) ;
     end
 
+    pd_fault_dip = cell(1,nr_fault);
+    pd_fault_azi = cell(1,nr_fault);
+    r_fault_dip = cell(1,nr_fault);
+    r_fault_azi = cell(1,nr_fault);
     % Distribution functions and random generation of fault dip/azimuth
     % attributes
     for j= 1:nr_fault
@@ -126,20 +130,24 @@ function [deltap_cr,deltap_cr_ref,r_p,r_Sv,r_Shmin,r_SHmax,r_SHmax_dir,r_fault_m
             end
         end
     end
-
-    % Calculating critical pressure for different combination of uncertain
-    % parameters (Monte Carlo simultion)
-    for i= 1:n_MC
-        % calculating stress distribution along each fault
-        for j= 1:nr_fault
-            % for the number of Monte Carlo realizations
-            [Sigma_n,Tau] = stress_projection(r_SHmax_dir(i),...
-            r_SHmax(i),r_Shmin(i),r_Sv(i),r_fault_azi{j}(i),r_fault_dip{j}(i));
-            % critical pressure to cause slip for MC realizations
-            deltap_cr{j}(i) = Sigma_n - r_p(i) - Tau/r_fault_mu(i);
+    
+    r_SHmax_dir_rad = deg2rad(r_SHmax_dir);
+    r_fault_azi_rad = cellfun(@deg2rad,r_fault_azi,'UniformOutput',false);
+    r_fault_dip_rad = cellfun(@deg2rad,r_fault_dip,'UniformOutput',false);
+    deltap_cr = cell(1,nr_fault);
+    % calculating stress distribution along each fault
+    for j= 1:nr_fault
+        % Calculating critical pressure for different combination of uncertain
+        % parameters (Monte Carlo simultion)
+        [Sigma_n,Tau] = arrayfun(@stress_projection,...
+            r_SHmax_dir_rad,r_SHmax,r_Shmin,r_Sv,r_fault_azi_rad{j},r_fault_dip_rad{j});
+        deltap_cr{j} = Sigma_n - r_p - Tau./r_fault_mu;
+        if mod(j,100) == 0
+            disp(j);
         end
     end
 
+    deltap_cr_ref = zeros(1,nr_fault);
     % Calculating critical pressure for all faults at reference stress
     % conditions and fault properties
     for i= 1:nr_fault
